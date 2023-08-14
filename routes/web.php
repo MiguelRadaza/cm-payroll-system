@@ -19,7 +19,7 @@ Route::get('/', function () {
 
 Route::get('/dashboard', function () {
     return view('pages.dashboard');
-});
+})->name('dashboard');
 
 Route::get('/register', function () {
     return view('auth.register');
@@ -28,3 +28,11 @@ Route::get('/register', function () {
 Route::get('/login', function () {
     return view('auth.login');
 });
+
+Route::get('/employees', function () {
+    return view('pages.employee');
+})->name('employee');
+
+Route::get('/payouts', function () {
+    return view('pages.payouts');
+})->name('payouts');

@@ -13,8 +13,10 @@
         <link rel="preconnect" href="https://fonts.googleapis.com">
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
         <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet">
+        <link rel="stylesheet" href="{{ asset('vendor/plugins/fontawesome-6.4.2/css/all.min.css') }}">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/styles/overlayscrollbars.min.css" integrity="sha256-LWLZPJ7X1jJLI5OG5695qDemW1qQ7lNdbTfQ64ylbUY=" crossorigin="anonymous">
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.min.css" integrity="sha256-BicZsQAhkGHIoR//IB2amPN5SrRb3fHB8tFsnqRAwnk=" crossorigin="anonymous">
+        <link rel="stylesheet" href="{{ asset('vendor/plugins/DataTables/datatables.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte4/adminlte.css') }}">
     </head>
 
@@ -24,14 +26,21 @@
             <x-header></x-header>
             <x-sidebar></x-sidebar>
             <main class="app-main">
-                <x-contentHeader></x-contentHeader>
-                <div class="app-content">
+                @if(Request::is('dashboard/*') || Request::is('dashboard')) 
                     @yield('content')
-                </div>
+                @else
+                    <x-contentHeader></x-contentHeader>
+                    <div class="app-content">
+                        @yield('content')
+                    </div>
+                @endif
+               
             </main>
             <x-footer></x-footer>
         </div>
 
+        <script src="{{ asset('/vendor/plugins/jquery/jquery.min.js') }}"></script>
+        <script src="{{ asset('vendor/plugins/DataTables/datatables.min.js') }}"></script>
         <!--begin::Third Party Plugin(OverlayScrollbars)-->
         <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-NRZchBuHZWSXldqrtAOeCZpucH/1n1ToJ3C8mSK95NU=" crossorigin="anonymous"></script>
         <!--end::Third Party Plugin(OverlayScrollbars)--><!--begin::Required Plugin(popperjs for Bootstrap 5)-->
@@ -39,6 +48,8 @@
         <!--end::Required Plugin(popperjs for Bootstrap 5)--><!--begin::Required Plugin(Bootstrap 5)-->
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
         <!--end::Required Plugin(Bootstrap 5)--><!--begin::Required Plugin(AdminLTE)-->
+        @yield('scripts')
+        {{-- <script src="{{ asset('vendor/plugins/jquery/jquery-3.7.0.min.js') }}"></script> --}}
         <script src="{{ asset('vendor/adminlte4/adminlte.js') }}"></script>
         <!--end::Required Plugin(AdminLTE)--><!--begin::OverlayScrollbars Configure-->
         <script>
