@@ -20,8 +20,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        Blade::component('smallBoxWidget', \App\View\Components\SmallBoxWidget::class);
-        Blade::component('alert', \App\View\Components\SmallBoxWidget::class);
-        Blade::component('alertWidget', \App\View\Components\SmallBoxWidget::class);
+        Blade::component('small-box-widget', \App\View\Components\smallBoxWidget::class);
+        Blade::component('alert-widget', \App\View\Components\alertWidget::class);
+        Blade::component('modal', \App\View\Components\modal::class);
     }
 }
