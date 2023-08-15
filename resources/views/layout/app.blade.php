@@ -34,7 +34,7 @@
                         @yield('content')
                     </div>
                 @else
-                    <x-contentHeader></x-contentHeader>
+                    <x-content-header></x-content-header>
                     <div class="app-content">
                         @include('layout.notifications')
                         @yield('content')
