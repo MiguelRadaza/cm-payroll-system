@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Validator;
 use App\Models\Employee;
 use App\Models\EmployeePayout;
 use App\Models\EmployeeDeduction;
+use App\Notifications\PayoutInvoice; 
 use App\Models\User;
 
 class EmployeeController extends Controller
@@ -81,6 +82,7 @@ class EmployeeController extends Controller
             $payout->net_pay = $request->net_pay;
             $payout->total_deductions = $totalDeduction;
             $payout->created_by = $user->id;
+            $payout->company_id = $user->company->id;
             $payout->save();
 
             if (isset($request->deductions) && count($request->deductions) > 0) {
@@ -101,6 +103,10 @@ class EmployeeController extends Controller
                 $payout->save();
             }
             DB::commit();
+
+            $employee = User::where('id', $request->employeeId)->first();
+            $employee->notify(new PayoutInvoice([]));
+
             return $this->successRes('Payout Created successfully');
         } catch (\Exception $ex) {
             DB::rollBack();

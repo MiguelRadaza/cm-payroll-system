@@ -50,7 +50,7 @@
                                 <tbody>
                                     @foreach ($employees as $item)
                                         <tr>
-                                            <td>{{ $item->user_id }}</td>
+                                            <td>{{ $item->user->name }}</td>
                                             <td>{{ $item->position }}</td>
                                             <td>{{ $item->rate }}</td>
                                             <td>{{ $item->is_fixed }}</td>

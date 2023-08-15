@@ -7,7 +7,7 @@
             <!--begin::Col-->
             <div class="col-lg-3 col-6">
                 <!--begin::Small Box Widget 1-->
-                <x-smallBoxWidget></x-smallBoxWidget>
+                {{-- <x-smallBoxWidget></x-smallBoxWidget> --}}
                 <!--end::Small Box Widget 1-->
             </div>
             <!--end::Col-->
@@ -23,16 +23,22 @@
                         <thead>
                             <tr>
                                 <th>Name</th>
-                                <th></th>
+                                <th>Net Pay</th>
+                                <th>Total Deductions</th>
                                 <th></th>
                             </tr>
                         </thead>
                         <tbody>
+                            @foreach ($payouts as $payout)
                                 <tr>
-                                    <td>awd</td>
-                                    <td>awd</td>
-                                    <td>awdawd</td>
+                                    <td>{{ $payout->employee->user->name }}</td>
+                                    <td>{{ $payout->net_pay }}</td>
+                                    <td>{{ $payout->total_deductions }}</td>
+                                    <td class="text-center">
+                                        <button class="btn btn-info btn-md"><i class="fas fa-clipboard me-2"></i> View</button>
+                                    </td>
                                 </tr>
+                            @endforeach
                         </tbody>
                     </table>
                 </div>

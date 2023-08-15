@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
+use App\Http\Controllers\PayoutController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -15,7 +16,7 @@ use App\Http\Controllers\EmployeeController;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('home');
 
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
@@ -36,12 +37,12 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     });
-    
-    Route::get('/payouts', function () {
-        return view('pages.payouts');
-    })->name('payouts');
+
+    Route::prefix('payout')->group(function () {
+        Route::get('/', [PayoutController::class, 'index'])->name('payouts');
+    });
 });
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+// Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
