@@ -162,7 +162,9 @@
                     dataType: "json",
                     success: function (response) {
                         if (response.success === true) {
-                            window.location.href = "/"; // Redirect to the desired URL
+                            var baseUrl = window.location.protocol + "//" + window.location.host;
+                            var newUrl = baseUrl + "/employees";
+                            window.location.href = newUrl; // Redirect to the desired URL
                         }
                     },
                     error: function (xhr, status, error) {
