@@ -17,22 +17,28 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('pages.dashboard');
-})->name('dashboard');
-
-Route::get('/register', function () {
-    return view('auth.register');
+Route::middleware(['auth'])->group(function () {
+    Route::get('/dashboard', function () {
+        return view('pages.dashboard');
+    })->name('dashboard');
+    
+    Route::get('/register', function () {
+        return view('auth.register');
+    });
+    
+    Route::get('/login', function () {
+        return view('auth.login');
+    });
+    
+    Route::get('/employees', function () {
+        return view('pages.employee');
+    })->name('employee');
+    
+    Route::get('/payouts', function () {
+        return view('pages.payouts');
+    })->name('payouts');
 });
 
-Route::get('/login', function () {
-    return view('auth.login');
-});
+Auth::routes();
 
-Route::get('/employees', function () {
-    return view('pages.employee');
-})->name('employee');
-
-Route::get('/payouts', function () {
-    return view('pages.payouts');
-})->name('payouts');
+Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');

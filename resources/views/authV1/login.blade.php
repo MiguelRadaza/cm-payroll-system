@@ -55,13 +55,24 @@
                 <!--end::Row-->
             </form>
 
+            <div class="social-auth-links text-center mb-3 d-grid gap-2">
+                <p>- OR -</p>
+                <a href="#" class="btn btn-primary">
+                    <i class="bi bi-facebook me-2"></i> Sign in using Facebook
+                </a>
+                <a href="#" class="btn btn-danger">
+                    <i class="bi bi-google me-2"></i> Sign in using Google+
+                </a>
+            </div>
+            <!-- /.social-auth-links -->
+
             @if (Route::has('password.request'))
                 <p class="mb-1">
                     <a href="{{ route('password.request') }}">{{ __('Forgot Your Password?') }}</a>
                 </p>
             @endif
             <p class="mb-0">
-                <a class='text-center' href='{{ route('register') }}'>
+                <a class='text-center' href='/dist/pages/examples/register'>
                     Register a new membership
                 </a>
             </p>
