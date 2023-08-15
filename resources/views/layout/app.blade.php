@@ -26,7 +26,7 @@
         <!--begin::App Wrapper-->
         <div class="app-wrapper">
             <x-header></x-header>
-            <x-sidebar></x-sidebar>
+            <x-sidebar></x-sidebar> 
             <main class="app-main">
                 @if(Request::is('dashboard/*') || Request::is('dashboard')) 
                     <div class="app-content">
