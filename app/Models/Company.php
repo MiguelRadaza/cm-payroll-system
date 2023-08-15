@@ -9,6 +9,9 @@ class Company extends Model
 {
     use HasFactory;
 
+    CONST STATE_ACTIVE = 'active';
+    CONST STATE_INACTIVE = 'inactive';
+
     public $fillable = [
         'name',
         'state',

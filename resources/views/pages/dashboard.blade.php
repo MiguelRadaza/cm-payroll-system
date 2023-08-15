@@ -6,7 +6,7 @@
         <!--begin::Row-->
         <div class="row">
             <div class="col-sm-6">
-                <h3 class="mb-0">{Name}</h3>
+                <h3 class="mb-0">{{ auth()->user()->company->name }}</h3>
             </div>
             <div class="col-sm-6">
                 <ol class="breadcrumb float-sm-end">
@@ -56,7 +56,7 @@
             <div class="row">
                 <div class="card">
                     <div class="card-header">
-                        <h2 class="card-title">List</h2>
+                        <h2 class="card-title">Reported Payout Issue</h2>
                     </div>
                     <div class="card-body">
                         <table id="manage-category-table" class="table table-bordered table-striped">

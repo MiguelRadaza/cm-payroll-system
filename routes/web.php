@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\EmployeeController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -21,6 +21,11 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('dashboard');
+
+    Route::prefix('employees')->group(function () {
+        Route::get('/', [EmployeeController::class, 'index'])->name('employee');
+        Route::post('/create-employee', [EmployeeController::class, 'createEmployee'])->name('employee.create');
+    });
     
     Route::get('/register', function () {
         return view('auth.register');
@@ -30,9 +35,6 @@ Route::middleware(['auth'])->group(function () {
         return view('auth.login');
     });
     
-    Route::get('/employees', function () {
-        return view('pages.employee');
-    })->name('employee');
     
     Route::get('/payouts', function () {
         return view('pages.payouts');

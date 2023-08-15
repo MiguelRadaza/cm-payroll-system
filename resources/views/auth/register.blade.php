@@ -13,6 +13,17 @@
             <form method="POST" action="{{ route('register') }}">
                 @csrf
                 <div class="input-group mb-3">
+                    <input type="text" class="form-control  @error('name') is-invalid @enderror" name="company_name" value="{{ old('company_name') }}" required autocomplete="company_name" autofocus placeholder="Company Name">
+                    <div class="input-group-text">
+                        <span class="fas fa-building"></span>
+                    </div>
+                    @error('company_name')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
+                <div class="input-group mb-3">
                     <input type="text" class="form-control  @error('name') is-invalid @enderror" name="name" value="{{ old('name') }}" required autocomplete="name" autofocus placeholder="Full Name">
                     <div class="input-group-text">
                         <span class="bi bi-person"></span>
