@@ -8,4 +8,11 @@ use Illuminate\Database\Eloquent\Model;
 class EmployeeDeduction extends Model
 {
     use HasFactory;
+
+    public $fillable = [
+        'payout_id',
+        'name',
+        'description',
+        'amount',
+    ];
 }

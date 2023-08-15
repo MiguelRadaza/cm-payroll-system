@@ -25,6 +25,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('employees')->group(function () {
         Route::get('/', [EmployeeController::class, 'index'])->name('employee');
         Route::post('/create-employee', [EmployeeController::class, 'createEmployee'])->name('employee.create');
+        Route::get('/payout/{id}', [EmployeeController::class, 'sendPayoutPage'])->name('employee.create-page');
+        Route::post('/payout/', [EmployeeController::class, 'sendPayout'])->name('employee.payout-create');
     });
     
     Route::get('/register', function () {
@@ -34,7 +36,6 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/login', function () {
         return view('auth.login');
     });
-    
     
     Route::get('/payouts', function () {
         return view('pages.payouts');

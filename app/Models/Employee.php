@@ -20,4 +20,9 @@ class Employee extends Model
         'position',
         'payout',
     ];
+
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }
