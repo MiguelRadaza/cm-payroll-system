@@ -56,7 +56,7 @@ class CompanyInvitationController extends Controller
         ]);
 
         Notification::route('mail', $request->email)
-            ->notify(new InvitationToCMSystem($hashKey, $request->email, $expiration, route('register')));
+            ->notify(new RegistrationInvitation($hashKey, $request->email, $expiration, route('register')));
 
         return redirect()->back()->with(['success' => 'Company Invitation Created Successfully.']);
     }
