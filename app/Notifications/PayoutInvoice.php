@@ -37,7 +37,7 @@ class PayoutInvoice extends Notification implements ShouldQueue
         return (new MailMessage)
                     ->line('The introduction to the notification.')
                     ->action('Notification Action', url('/'))
-                    ->line('Thank you for using our application!')->queue();
+                    ->line('Thank you for using our application!');
     }
 
     /**
