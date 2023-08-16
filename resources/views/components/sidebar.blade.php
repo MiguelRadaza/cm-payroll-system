@@ -1,7 +1,7 @@
 <aside class="app-sidebar bg-body-secondary shadow" data-bs-theme="dark">
     <div class="sidebar-brand">
         <a class='brand-link' href='/dist/pages/'>
-            <span class="brand-text fw-light">{{ config('app.name') }}</span>
+            <span class="brand-text fw-light">{{ config('app.name') }} - {{ auth()->user()->company->name }}</span>
         </a>
     </div>
     <div class="sidebar-wrapper">
