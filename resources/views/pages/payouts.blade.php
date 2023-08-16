@@ -35,7 +35,8 @@
                                     <td>{{ $payout->net_pay }}</td>
                                     <td>{{ $payout->total_deductions }}</td>
                                     <td class="text-center">
-                                        <button class="btn btn-info btn-md"><i class="fas fa-clipboard me-2"></i> View</button>
+                                        <button class="btn btn-success btn-md print-button" data-item-id="{{ $payout->id }}"><i class="fas fa-print me-2"></i> Print</button>
+                                        {{-- <button class="btn btn-info btn-md"><i class="fas fa-clipboard me-2"></i> View</button> --}}
                                     </td>
                                 </tr>
                             @endforeach
@@ -50,6 +51,22 @@
 @endsection
 @section('scripts')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const printButtons = document.querySelectorAll('.print-button');
+
+            printButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item-id');
+                    const printUrl = `{{ route('payouts.payslip', ['id' => 'itemId']) }}`.replace('itemId', itemId);
+
+                    const printWindow = window.open(printUrl, '_blank');
+                    printWindow.onload = function() {
+                        printWindow.print();
+                    };
+                });
+            });
+        });
+
         $(function () {
             $('#manage-category-table').DataTable({
                 "paging": true,

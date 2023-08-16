@@ -14,4 +14,10 @@ class PayoutController extends Controller
 
         return view('pages.payouts', compact('payouts'));
     }
+
+    public function payslipPage($id)
+    {
+        $payslip = EmployeePayout::findOrFail($id);
+        return view('vendor.payslip', compact('payslip'));
+    }
 }

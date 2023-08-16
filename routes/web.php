@@ -17,7 +17,7 @@ use App\Http\Controllers\CompanyInvitationController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('auth.login');
 })->name('home');
 
 Route::middleware(['auth'])->group(function () {
@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
 
     Route::prefix('payout')->group(function () {
         Route::get('/', [PayoutController::class, 'index'])->name('payouts');
+        Route::get('/payslip/{id}', [PayoutController::class, 'payslipPage'])->name('payouts.payslip');
     });
 
     Route::prefix('user')->group(function () {

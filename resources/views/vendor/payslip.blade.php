@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>{CompanyName} - Paysplip</title>
+    <title>{{ $payslip->employee->company->name }} - Paysplip</title>
     <style>
         body {
             background: #f0f0f0;
@@ -159,6 +159,30 @@
             background: rgba(0, 0, 0, 0.04);
         }
 
+
+        @media print {
+            body {
+                background: #f0f0f0;
+                display: block;
+                padding: 0;
+                margin: 0;
+            }
+
+            #payslip {
+                width: 100%; /* Use the full width of the printed page */
+                height: auto; /* Let the content dictate the height */
+                page-break-inside: avoid; /* Avoid page breaks within the payslip */
+            }
+
+            /* Add this to avoid breaking the content */
+            .content {
+                page-break-inside: avoid;
+            }
+
+            /* Adjust other styles as needed for print layout */
+            /* For example, you might need to adjust font sizes, margins, and padding */
+        }
+
     </style>
 </head>
 <body>
@@ -178,50 +202,50 @@
             <div class="left-panel">
                 <div id="employee">
                     <div id="name">
-                        Piven El'Sync
+                        {{ $payslip->employee->company->name }} 
                     </div>
                     <div id="email">
-                        mary.ann+Regr06@salarium.com
+                        {{ $payslip->employee->company->user->email }} 
                     </div>
                 </div>
                 <div class="details">
                     <div class="entry">
                         <div class="label">Employee ID</div>
-                        <div class="value">Reg-006</div>
+                        <div class="value">{{ $payslip->employee->id }} </div>
                     </div>
-                    <div class="entry">
+                    {{-- <div class="entry">
                         <div class="label">Tax Status</div>
                         <div class="value">Married - 2 Dependents</div>
-                    </div>
+                    </div> --}}
                     <div class="entry">
-                        <div class="label">Hourly Rate</div>
-                        <div class="value">1,023.68</div>
+                        <div class="label">{{ $payslip->employee->is_fixed? 'Fixed Rate' : 'Hourly Rate' }}</div>
+                        <div class="value">{{ number_format($payslip->employee->rate, 2) }} </div>
                     </div>
                     <div class="entry">
                         <div class="label">Company Name</div>
-                        <div class="value">Not a Shady One</div>
+                        <div class="value">{{ $payslip->employee->company->name }}</div>
                     </div>
                     <div class="entry">
                         <div class="label">Date Hired</div>
-                        <div class="value">Dec 1, 1862</div>
+                        <div class="value">{{ $payslip->employee->created_at }}</div>
                     </div>
                     <div class="entry">
                         <div class="label">Position</div>
-                        <div class="value">Point Guard</div>
+                        <div class="value">{{ $payslip->employee->position == "15-30"? "15th & 30th" : "30th"  }}</div>
                     </div>
-                    <div class="entry">
+                    {{-- <div class="entry">
                         <div class="label">Department</div>
                         <div class="value">1st String</div>
-                    </div>
-                    <div class="entry">
+                    </div> --}}
+                    {{-- <div class="entry">
                         <div class="label">Rank</div>
                         <div class="value">MVP</div>
-                    </div>
+                    </div> --}}
                     <div class="entry">
                         <div class="label">Payroll Cycle</div>
-                        <div class="value">Semi-Monthly</div>
+                        <div class="value">{{ $payslip->employee->payout  }}</div>
                     </div>
-                    <div class="entry">
+                    {{-- <div class="entry">
                         <div class="label">Cost Center</div>
                         <div class="value">Under the Table Funds</div>
                     </div>
@@ -240,22 +264,22 @@
                     <div class="entry">
                         <div class="label">Philhealth</div>
                         <div class="value">12-312312312-3</div>
-                    </div>
-                    <div class="entry">
+                    </div> --}}
+                    {{-- <div class="entry">
                         <div class="label">Prepared by</div>
                         <div class="value">Piven Himself</div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="gross">
                     <div class="title">Gross Income</div>
                     <div class="entry">
                         <div class="label"></div>
-                        <div class="value">92,823.86</div>
+                        <div class="value">{{ number_format(($payslip->employee->payout == "15-30"?  $payslip->employee->rate / 2 : $payslip->employee->rate), 2)  }}</div>
                     </div>
                 </div>
                 <div class="contributions">
                     <div class="title">Employer Contribution</div>
-                    <div class="entry">
+                    {{-- <div class="entry">
                         <div class="label">SSS</div>
                         <div class="value">1,178.70</div>
                     </div>
@@ -270,15 +294,15 @@
                     <div class="entry">
                         <div class="label">PhilHealth</div>
                         <div class="value">437.50</div>
-                    </div>
+                    </div> --}}
                 </div>
                 <div class="ytd">
                     <div class="title">Year To Date Figures</div>
                     <div class="entry">
                         <div class="label">Gross Income</div>
-                        <div class="value">92,823.86</div>
+                        <div class="value">{{ number_format($payslip->employee->rate * 12, 2) }}</div>
                     </div>
-                    <div class="entry">
+                    {{-- <div class="entry">
                         <div class="label">Taxable Income</div>
                         <div class="value">82,705.06</div>
                     </div>
@@ -321,7 +345,7 @@
                     <div class="entry">
                         <div class="label">Pag-ibig Employer</div>
                         <div class="value">100.00</div>
-                    </div>
+                    </div> --}}
                 </div>
             </div>
             <div class="right-panel">
@@ -330,8 +354,8 @@
                         <div class="entry">
                             <div class="label">Basic Pay</div>
                             <div class="detail"></div>
-                            <div class="rate">45,000.00/Month</div>
-                            <div class="amount">45,000.00</div>
+                            <div class="rate">{{ number_format($payslip->employee->rate, 2) }}/Month</div>
+                            <div class="amount">{{ number_format($payslip->employee->rate, 2) }}</div>
                         </div>
                     </div>
                     <div class="salary">
@@ -341,48 +365,7 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Undertime</div>
-                            <div class="rate">128hrs@259.62/hr</div>
-                            <div class="amount">(33,231.36)</div>
-                        </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Unworked Holiday</div>
-                            <div class="rate">16hrs@259.62/hr</div>
-                            <div class="amount">4,153.92</div>
-                        </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Regular Holiday Regular Holiday</div>
-                            <div class="rate">9hrs@778.85/hr</div>
-                            <div class="amount">7,009.65</div>
-                        </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Regular Holiday Regular Holiday Night</div>
-                            <div class="rate">7hrs@856.73/hr</div>
-                            <div class="amount">5,997.11</div>
-                        </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Night</div>
-                            <div class="rate">56hrs@285.582/hr</div>
-                            <div class="amount">15,992.59</div>
-                        </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Regular Holiday</div>
-                            <div class="rate">9hrs@519.23/hr</div>
-                            <div class="amount">4,673.07</div>
-                        </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">Regular Holiday Night</div>
-                            <div class="rate">7hrs@571.15/hr</div>
-                            <div class="amount">3,998.05</div>
-                        </div>
+                        
                         <div class="entry">
                             <div class="label"></div>
                             <div class="detail">Regular Holiday Night Overtime</div>
@@ -435,12 +418,12 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
+                        {{-- <div class="entry">
                             <div class="label"></div>
                             <div class="detail">Allowance Name</div>
                             <div class="rate"></div>
                             <div class="amount">1,000.00</div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="taxable_bonus">
                         <div class="entry">
@@ -449,12 +432,12 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
+                        {{-- <div class="entry">
                             <div class="label"></div>
                             <div class="detail">Bonus Name</div>
                             <div class="rate"></div>
                             <div class="amount">19,409.34</div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="taxable_commission"></div>
                     <div class="contributions">
@@ -464,7 +447,7 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
+                        {{-- <div class="entry">
                             <div class="label"></div>
                             <div class="detail">SSS</div>
                             <div class="rate"></div>
@@ -481,14 +464,14 @@
                             <div class="detail">PhilHealth</div>
                             <div class="rate"></div>
                             <div class="amount">(437.50)</div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="nti">
                         <div class="entry">
                             <div class="label">TAXABLE INCOME</div>
                             <div class="detail"></div>
                             <div class="rate"></div>
-                            <div class="amount">82,705.06</div>
+                            <div class="amount">0</div>
                         </div>
                     </div>
                     <div class="withholding_tax">
@@ -496,7 +479,7 @@
                             <div class="label">Withholding Tax</div>
                             <div class="detail"></div>
                             <div class="rate"></div>
-                            <div class="amount">(21,548.85)</div>
+                            {{-- <div class="amount">(21,548.85)</div> --}}
                         </div>
                     </div>
                     <div class="non_taxable_allowance">
@@ -506,12 +489,12 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
+                        {{-- <div class="entry">
                             <div class="label"></div>
                             <div class="detail">Allowance Name</div>
                             <div class="rate"></div>
                             <div class="amount">1,500.00</div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="non_taxable_bonus">
                         <div class="entry">
@@ -520,12 +503,12 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
+                        {{-- <div class="entry">
                             <div class="label"></div>
                             <div class="detail">Bonus Name</div>
                             <div class="rate"></div>
-                            <div class="amount">2,000.00</div>
-                        </div>
+                            <div class="amount">0</div>
+                        </div> --}}
                     </div>
                     <div class="non_taxable_commission">
                         <div class="entry">
@@ -534,7 +517,7 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
+                        {{-- <div class="entry">
                             <div class="label"></div>
                             <div class="detail">Commission Name 1</div>
                             <div class="rate"></div>
@@ -545,7 +528,7 @@
                             <div class="detail">Commission Name 2</div>
                             <div class="rate"></div>
                             <div class="amount">2,500.00</div>
-                        </div>
+                        </div> --}}
                     </div>
                     <div class="deductions">
                         <div class="entry">
@@ -554,19 +537,29 @@
                             <div class="rate"></div>
                             <div class="amount"></div>
                         </div>
-                        <div class="entry">
-                            <div class="label"></div>
-                            <div class="detail">HMO</div>
-                            <div class="rate"></div>
-                            <div class="amount">(500.00)</div>
-                        </div>
+                        <?php
+                            if (!empty($payslip->deductions)) {
+                                foreach ($payslip->deductions as $deduction) {
+                                    ?>
+                                        <div class="entry">
+                                            <div class="label"></div>
+                                            <div class="detail">{{ $deduction->name }}</div>
+                                            <div class="rate"></div>
+                                            <div class="amount">{{ $deduction->amount }}</div>
+                                            <div class="amount">(500.00)</div>
+                                        </div>
+                                    <?php
+                                }
+                            }
+                        ?>
+                        
                     </div>
                     <div class="net_pay">
                         <div class="entry">
                             <div class="label">NET PAY</div>
                             <div class="detail"></div>
                             <div class="rate"></div>
-                            <div class="amount">69,656.21</div>
+                            <div class="amount">{{ number_format($payslip->net_pay - $payslip->total_deductions, 2) }}</div>
                         </div>
                     </div>
                 </div>

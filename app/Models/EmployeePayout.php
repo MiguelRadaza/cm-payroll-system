@@ -13,4 +13,9 @@ class EmployeePayout extends Model
     {
         return $this->belongsTo(Employee::class, 'employee_id');
     }
+
+    public function deductions()
+    {
+        return $this->hasMany(EmployeeDeduction::class, 'payout_id')->where('is_deleted', 0);
+    }
 }
