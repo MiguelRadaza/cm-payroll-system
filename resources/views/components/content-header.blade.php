@@ -7,6 +7,8 @@
                 <h3 class="mb-0">
                     @if(Request::is('employees/*') || Request::is('employees')) 
                         Employee @if (Request::is('employees/payout/*') || Request::is('employees/payout')) - Payout @endif
+                    @elseif(Request::is('admin/company-invitation/*') || Request::is('admin/company-invitation'))
+                        Company Invitation
                     @else 
                         Payouts
                     @endif 
@@ -17,7 +19,9 @@
                     <li class="breadcrumb-item"><a href="{{ route('dashboard') }}">Home</a></li>
                     <li class="breadcrumb-item @if((Request::is('employees/*') || Request::is('employees')) && !Request::is('employees/payout')) active @endif" aria-current="page">
                         @if(Request::is('employees/*') || Request::is('employees')) 
-                        Employee
+                            Employee
+                        @elseif(Request::is('admin/company-invitation/*') || Request::is('admin/company-invitation'))
+                            Company Invitation
                         @else 
                             Payouts
                         @endif 

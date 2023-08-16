@@ -8,6 +8,8 @@ use App\Models\User;
 use App\Models\Company;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use App\Rules\ValidInvitationKey;
+use Spatie\Permission\Models\Role;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -54,6 +56,7 @@ class RegisterController extends Controller
             'name' => ['required', 'string', 'max:255'],
             'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
             'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'key' => ['required', 'string', new ValidInvitationKey()],
         ]);
 
         $company = Validator::make($data, [
@@ -76,6 +79,8 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+        $role = Role::where('name', 'ceo')->first();
+        $user->assignRole($role);
 
         $company = Company::create([
             'name' => $data['company_name'],

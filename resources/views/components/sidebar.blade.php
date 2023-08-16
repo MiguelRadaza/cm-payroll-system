@@ -25,6 +25,15 @@
                         <p>Payout History</p>
                     </a>
                 </li>
+                {{ auth()->user()->role }}
+                @role('super admin')
+                    <li class="nav-item">
+                        <a class='nav-link @if(Request::is('company-invitation/*') || Request::is('company-invitation')) active @endif' href="{{ route('admin.create-invitation-page') }}"> 
+                            <i class="nav-icon fas fa-building"></i>
+                            <p>Company Invitation</p>
+                        </a>
+                    </li>
+                @endrole
             </ul>
         </nav>
     </div>
