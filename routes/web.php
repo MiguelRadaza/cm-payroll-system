@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PayoutController;
+use App\Http\Controllers\UserController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -41,6 +42,11 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('payout')->group(function () {
         Route::get('/', [PayoutController::class, 'index'])->name('payouts');
     });
+
+    Route::prefix('user')->group(function () {
+        Route::get('/', [UserController::class, 'getUserProfile'])->name('user.profile');
+    });
+
 });
 
 Auth::routes();
