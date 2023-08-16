@@ -40,6 +40,17 @@ class RegistrationInvitation extends Notification
     }
 
     /**
+     * Route notifications for the mail channel.
+     *
+     * @return  array<string, string>|string
+     */
+    public function routeNotificationForMail(Notification $notification): array|string
+    {
+        // Return email address only...
+        return $this->invitationEmail;
+    }
+
+    /**
      * Get the mail representation of the notification.
      */
     public function toMail(object $notifiable): MailMessage
@@ -48,9 +59,8 @@ class RegistrationInvitation extends Notification
         $appName = config('app.name');
 
         return (new MailMessage)
-                    ->to($this->invitationEmail)
                     ->subject('Invitation to Register for CM-Payroll System')
-                    ->greeting('Dear ' . $notifiable->name . ',')
+                    ->greeting('Dear ' . $this->invitationEmail . ',')
                     ->line('We are excited to invite you to register for the CM-Payroll System, a comprehensive solution designed to simplify payroll management for your organization.')
                     ->line('**Invitation Details:**')
                     ->line('Invitation Key: ' . $this->invitationKey)
