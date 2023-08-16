@@ -14,12 +14,12 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-        $user = User::where('id', 1)->first();
-        $role = Role::where('name', 'super admin')->first();
-        $user->assignRole($role);
-        
         Role::create(['name' => 'super admin']);
         Role::create(['name' => 'ceo']);
         Role::create(['name' => 'employee']);
+
+        $user = User::where('id', 1)->first();
+        $role = Role::where('name', 'super admin')->first();
+        $user->assignRole($role);
     }
 }
