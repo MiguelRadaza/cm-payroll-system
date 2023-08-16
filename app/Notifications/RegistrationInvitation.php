@@ -74,7 +74,7 @@ class RegistrationInvitation extends Notification
                     ->line('3. Use the invitation key ' . $this->invitationKey . ' when prompted during registration.')
                     ->line('4. Complete the registration process and start experiencing the benefits of the CM-Payroll System.')
                     ->line('Please note that the registration deadline is ' . $this->registrationDeadline . '. Ensure you complete your registration before this date to gain access to the system.')
-                    ->line('If you have any questions or need assistance with the registration process, please don\'t hesitate to contact our support team at [Support Email Address].')
+                    ->line('If you have any questions or need assistance with the registration process, please don\'t hesitate to contact our support team at support@cm-payroll.chomuntinlupa.com.')
                     ->line('We look forward to welcoming you to the CM-Payroll System and assisting you in streamlining your payroll management.')
                     ->salutation('Best regards,')
                     ->line($this->invitationEmail)
