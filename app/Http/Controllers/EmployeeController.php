@@ -85,7 +85,7 @@ class EmployeeController extends Controller
             $payout->company_id = $user->company->id;
             $payout->save();
 
-            if (isset($request->deductions) && count($request->deductions) > 0) {
+            if (isset($request->deductions) && !empty($request->deductions) && count($request->deductions) > 0) {
                 foreach ($request->deductions as $key => $deduction) {
                     $totalDeduction += $deduction['amount'];
                     $createDeduction = EmployeeDeduction::create([
