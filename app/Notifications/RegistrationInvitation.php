@@ -46,7 +46,6 @@ class RegistrationInvitation extends Notification
      */
     public function routeNotificationForMail(Notification $notification): array|string
     {
-        // Return email address only...
         return $this->invitationEmail;
     }
 

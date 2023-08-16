@@ -58,7 +58,7 @@
                                             <td>{{ $item->is_deleted }}</td>
                                             <td>{{ $item->created_at }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('employee.create-page', $item->id) }}" class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
+                                                <a href="{{ route('employee.create-page', $item->user_id) }}" class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
                                                 <a class="btn btn-info btn-md"><i class="fas fa-clipboard me-2"></i>View</a>
                                             </td>
                                         </tr>

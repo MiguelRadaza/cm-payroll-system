@@ -18,7 +18,6 @@ class EmployeeController extends Controller
         $user = $this->checkUserSession();
         $employees = Employee::where('company_id', $user->company->id)->get();
         $users = User::all();
-
         return view('pages.employee', compact('employees', 'users'));
     }
 
@@ -60,7 +59,7 @@ class EmployeeController extends Controller
     public function sendPayoutPage($id)
     {
         $user = $this->checkUserSession();
-        $employee = Employee::where('user_id', $id)->first();
+        $employee = Employee::where('user_id', $id)->where('company_id', $user->company->id)->first();
         if (empty($employee)) {
             return redirect()->back()->with(['message' => 'Cannot find employee with id: ' . $id]);
         }
@@ -105,7 +104,7 @@ class EmployeeController extends Controller
             DB::commit();
 
             $employee = User::where('id', $request->employeeId)->first();
-            $employee->notify(new PayoutInvoice([]));
+            $employee->notify(new PayoutInvoice($user->name));
 
             return $this->successRes('Payout Created successfully');
         } catch (\Exception $ex) {
