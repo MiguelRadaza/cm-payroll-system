@@ -52,7 +52,8 @@ class CompanyInvitationController extends Controller
             'hash_key' => $hashKey,
             'expiration' => $expiration,
             'email' => $request->email,
-            'role' => 'ceo'
+            'role' => 'ceo',
+            'user_id' => $user->id,
         ]);
 
         Notification::route('mail', $request->email)

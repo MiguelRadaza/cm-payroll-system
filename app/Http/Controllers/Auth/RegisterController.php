@@ -8,8 +8,11 @@ use App\Models\User;
 use App\Models\Company;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
+use App\Models\RegistrationKey;
+use App\Models\Employee;
 use App\Rules\ValidInvitationKey;
 use Spatie\Permission\Models\Role;
+use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Validator;
 
 class RegisterController extends Controller
@@ -79,15 +82,26 @@ class RegisterController extends Controller
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
-        $role = Role::where('name', 'ceo')->first();
+
+        $registrationKeyDetails = RegistrationKey::where('hash_key', $data['key'])->where('is_deleted', 0)->first();
+        $role = Role::where('name', $registrationKeyDetails->role)->first();
         $user->assignRole($role);
 
-        $company = Company::create([
-            'name' => $data['company_name'],
-            'state' => Company::STATE_ACTIVE,
-            'user_id' => $user->id
-        ]);
+        if ($registrationKeyDetails->role == "ceo") {
+            $company = Company::create([
+                'name' => $data['company_name'],
+                'state' => Company::STATE_ACTIVE,
+                'user_id' => $user->id
+            ]);
+        } else {
+            $employeeDetails = Employee::where('registration_key_id', $registrationKeyDetails->id)->first();
+            $employeeDetails->user_id = $user->id;
+            $employeeDetails->save();
+        }
 
+        $registrationKeyDetails->is_deleted = 1;
+        $registrationKeyDetails->save();
+    
         return $user;
     }
 }

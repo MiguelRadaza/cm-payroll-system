@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
+use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Carbon;
+use Illuminate\Support\Facades\Notification;
+use App\Notifications\RegistrationInvitation;
 use App\Models\Employee;
 use App\Models\EmployeePayout;
+use App\Models\RegistrationKey;
 use App\Models\EmployeeDeduction;
 use App\Notifications\PayoutInvoice; 
 use App\Models\User;
@@ -26,10 +31,12 @@ class EmployeeController extends Controller
     {
         $user = $this->checkUserSession();
         $employee = Validator::make($request->all(), [
-            'user_id' => ['required', 'integer'],
             'position' => ['required', 'string',],
             'rate' => ['required', 'string',],
         ])->validate();
+        
+        $employeeEmail = '';
+        $payload = [];
 
         // Check if exists
         $check = Employee::where('user_id', $request->user_id)->where('position', $request->position)->first();
@@ -40,15 +47,40 @@ class EmployeeController extends Controller
         if (!in_array($request->payout, [Employee::PAYOUT_15_30, Employee::PAYOUT_30])) {
             return redirect()->back()->with(['message' => 'Incorrect value of payout. Please try again.']);
         }
-        
-        $employee = Employee::create([
+
+        $payload = [
             'company_id' => $user->company->id,
-            'user_id' => $request->user_id,
             'rate' => $request->rate,
             'is_fixed' => !isset($request->is_fixed)? 0 : 1,
             'position' => $request->position,
             'payout' => $request->payout,
-        ]);
+        ];
+
+        if (isset($request->user_id)) {
+            $payload['user_id'] = $request->user_id;
+        } else if (isset($request->user_email)) {
+            $employeeEmail = $request->user_email;
+        } else {
+            return redirect()->back()->with(['message' => 'Please provide required parameter.']);
+        }
+        
+        $employee = Employee::create($payload);
+
+        if (!empty($employeeEmail)) {
+            $hashKey = Str::random(40); 
+            $expiration = Carbon::now()->addDay();
+            $registrationKeyDetails = RegistrationKey::create([
+                'hash_key' => $hashKey,
+                'user_id' => $user->id,
+                'expiration' => $expiration,
+                'email' => $employeeEmail,
+                'role' => 'employee'
+            ]);
+            $employee->registration_key_id = $registrationKeyDetails->id;
+            $employee->save();
+            Notification::route('mail', $user->email)
+                ->notify(new RegistrationInvitation($hashKey, $employeeEmail, $expiration, route('register')));
+        }
 
         if (!$employee) {
             return redirect()->back()->with(['message' => 'An error ocurred while adding employee.']);

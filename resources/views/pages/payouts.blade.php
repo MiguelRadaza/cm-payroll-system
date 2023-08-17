@@ -16,7 +16,7 @@
         <div class="row">
             <div class="card">
                 <div class="card-header">
-                    <h2 class="card-title">List</h2>
+                    <h2 class="card-title">Employee Payout List</h2>
                 </div>
                 <div class="card-body">
                     <table id="manage-category-table" class="table table-bordered table-striped">
@@ -36,7 +36,9 @@
                                     <td>{{ $payout->total_deductions }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-success btn-md print-button" data-item-id="{{ $payout->id }}"><i class="fas fa-print me-2"></i> Print</button>
-                                        {{-- <button class="btn btn-info btn-md"><i class="fas fa-clipboard me-2"></i> View</button> --}}
+                                        @role('ceo')
+                                            <a class="btn btn-danger btn-md" href="{{ route('payouts.payslip-delete', $payout->id) }}"><i class="fas fa-trash me-2"></i> Delete Payout</a>
+                                        @endrole
                                     </td>
                                 </tr>
                             @endforeach

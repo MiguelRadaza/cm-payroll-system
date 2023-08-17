@@ -12,7 +12,7 @@
             <form id="deductionForm">
                 @csrf
                 <input id="is_fixed" value="{{ $employee->is_fixed }}" type="hidden">
-                <input id="employee_id" value="{{ $employee->id }}" type="hidden">
+                <input id="employee_id" value="{{ $employee->user_id }}" type="hidden">
                 <div class="card-body">
                     <div class="row">
                         <div class="row">

@@ -42,6 +42,7 @@ Route::middleware(['auth'])->group(function () {
     });
 
     Route::prefix('payout')->group(function () {
+        Route::get('/payslip/delete/{id}', [PayoutController::class, 'deletePayout'])->name('payouts.payslip-delete');
         Route::get('/', [PayoutController::class, 'index'])->name('payouts');
         Route::get('/payslip/{id}', [PayoutController::class, 'payslipPage'])->name('payouts.payslip');
     });

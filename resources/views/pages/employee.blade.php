@@ -50,7 +50,7 @@
                                 <tbody>
                                     @foreach ($employees as $item)
                                         <tr>
-                                            <td>{{ $item->user->name }}</td>
+                                            <td>{{ isset($item->user->name)? $item->user->name : "Pending Invitation" }}</td>
                                             <td>{{ $item->position }}</td>
                                             <td>{{ $item->rate }}</td>
                                             <td>{{ $item->is_fixed }}</td>
@@ -58,7 +58,8 @@
                                             <td>{{ $item->is_deleted }}</td>
                                             <td>{{ $item->created_at }}</td>
                                             <td class="text-center">
-                                                <a href="{{ route('employee.create-page', $item->user_id) }}" class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
+
+                                                <a @if(!empty($item->user_id)) href="{{ route('employee.create-page', $item->user_id) }}" @else hidden @endif class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
                                                 <button class="btn btn-info btn-md view-button" data-item-id="{{ $item->id }}" data-user="{{ $item }}"><i class="fas fa-clipboard me-2" ></i>View</button>
                                             </td>
                                         </tr>
@@ -74,7 +75,7 @@
         <x-modal id="addEmployeeModal" title="Create New Employee" formAction="{{ route('employee.create') }}">
             <div class="form-group mb-3">
                 <label for="inputField">User Email</label>
-                <select name="user_id" class="form-select @error('user_id') is-invalid @enderror" required aria-label="Select User">
+                <select name="user_id" id="userDropdown" class="form-select @error('user_id') is-invalid @enderror" required aria-label="Select User">
                     <option></option>
                     @foreach ($users as $user)
                         <option value="{{ $user->id }}"> {{ $user->email }} </option>
@@ -86,6 +87,16 @@
                     </span>
                 @enderror
             </div>
+            <div class="form-group mb-3">
+                <div class="col-12 mb-3"> 
+                    <input type="text" class="form-control" id="inviteInput" name="user_email" placeholder="Enter email to send invite link." hidden/>
+                </div>
+
+                <div class="col-12"> 
+                    <button class="btn btn-success" id="showInviteButton"><i class="fas fa-magnifying-glass me-2"></i> Employee not registered user yet?</button>
+                </div>
+            </div>
+
             <div class="form-group mb-3">
                 <label for="position">Position</label>
                 <input type="text" class="form-control @error('position') is-invalid @enderror" required id="position" name="position">
@@ -223,6 +234,17 @@
 
                     viewModal.show();
                 });
+            });
+
+            const inviteInput = document.getElementById('inviteInput');
+            const showInviteButton = document.getElementById('showInviteButton');
+            const userDropdown = document.getElementById('userDropdown');
+
+            showInviteButton.addEventListener('click', function() {
+                inviteInput.removeAttribute('hidden');
+                userDropdown.removeAttribute('required');
+                userDropdown.setAttribute('hidden', 'hidden');
+                inviteInput.setAttribute('required', 'required');
             });
         });
 

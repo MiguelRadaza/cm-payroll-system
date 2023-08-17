@@ -13,6 +13,7 @@ class RegistrationKey extends Model
         'hash_key',
         'email',
         'expiration',
-        'role'
+        'role',
+        'user_id'
     ];
 }
