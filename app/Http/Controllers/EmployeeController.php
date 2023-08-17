@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Validator;
 use App\Models\Employee;
@@ -72,6 +73,7 @@ class EmployeeController extends Controller
         $user = $this->checkUserSession();
         $totalDeduction = 0;
         if (empty($request->employeeId) || empty($request->month) || empty($request->net_pay)) {
+            Session::flash('message', 'Please provide required parameter.'); 
             return $this->errorRes('Please provide required parameter.');
         }
         DB::beginTransaction();
@@ -105,14 +107,45 @@ class EmployeeController extends Controller
 
             $employee = User::where('id', $request->employeeId)->first();
             $employee->notify(new PayoutInvoice($user->name));
-
+            Session::flash('success', 'Payout created successfully.'); 
             return $this->successRes('Payout Created successfully');
         } catch (\Exception $ex) {
             DB::rollBack();
+            Session::flash('message', $ex->getMessage()); 
             throw new \Exception($ex->getMessage(), 400);
         } catch (\Throwable $th) {
             DB::rollBack();
+            Session::flash('message', $th->getMessage());
             throw new \Exception($th->getMessage(), 400);
         }
+    }
+
+    public function updateEmployee(Request $request)
+    {
+        $user = $this->checkUserSession();
+        $employee = Validator::make($request->all(), [
+            'position' => ['required', 'string',],
+            'rate' => ['required', 'string',],
+            'id' => ['required']
+        ])->validate();
+
+        
+        if (!in_array($request->payout, [Employee::PAYOUT_15_30, Employee::PAYOUT_30])) {
+            return redirect()->back()->with(['message' => 'Incorrect value of payout. Please try again.']);
+        }
+        
+        $employee = Employee::where('id', $request->id)->first();
+        $employee->rate = $request->rate;
+        $employee->is_fixed = !isset($request->is_fixed)? 0 : 1;
+        $employee->position = $request->position;
+        $employee->payout = $request->payout;
+        $employee->save();
+
+        if (!$employee) {
+            return redirect()->back()->with(['message' => 'An error ocurred while adding employee.']);
+        }
+
+        return redirect()->back()->with(['success' => 'Employee Created Successfully.']);
+
     }
 }

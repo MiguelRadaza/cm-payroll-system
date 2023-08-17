@@ -20,7 +20,7 @@
                     </a>
                 </li>
                 <li class="nav-item">
-                    <a class='nav-link @if(Request::is('payouts/*') || Request::is('payouts')) active @endif' href="{{ route('payouts') }}">
+                    <a class='nav-link @if(Request::is('payout/*') || Request::is('payout')) active @endif' href="{{ route('payouts') }}">
                         <i class="nav-icon fas fa-money-bill"></i>
                         <p>Payout History</p>
                     </a>

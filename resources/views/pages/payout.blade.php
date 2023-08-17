@@ -63,7 +63,7 @@
 
                         <div class="form-group">
                             <label for="net_pay">Total Net Pay</label>
-                            <input type="net_pay" name="net_pay" id="net_pay" required class="form-control" />
+                            <input type="number" name="net_pay" id="net_pay" required class="form-control" />
                             <hr />
                         </div>
 

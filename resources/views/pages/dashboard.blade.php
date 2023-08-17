@@ -36,7 +36,7 @@
                         </svg>
                         '
                         color="bg-success"
-                        count="123"
+                        count="{{ count(auth()->user()->company->employee) }}"
                         content="Employees"
                         moreLink="#"
                     />
@@ -52,7 +52,7 @@
                         </svg>
                         '
                         color="bg-secondary"
-                        count="1232"
+                        count="{{ count(auth()->user()->company->employeePayout) }}"
                         content="Payouts"
                         moreLink="#"
                     />

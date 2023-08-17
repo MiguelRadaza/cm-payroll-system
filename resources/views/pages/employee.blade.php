@@ -59,7 +59,7 @@
                                             <td>{{ $item->created_at }}</td>
                                             <td class="text-center">
                                                 <a href="{{ route('employee.create-page', $item->user_id) }}" class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
-                                                <a class="btn btn-info btn-md"><i class="fas fa-clipboard me-2"></i>View</a>
+                                                <button class="btn btn-info btn-md view-button" data-item-id="{{ $item->id }}" data-user="{{ $item }}"><i class="fas fa-clipboard me-2" ></i>View</button>
                                             </td>
                                         </tr>
                                     @endforeach
@@ -130,12 +130,103 @@
                 @enderror
             </div>
         </x-modal>
+
+        <x-modal id="viewEmployeeModal" title="Employee Details" formAction="{{ route('employee.update') }}">
+            <input type="hidden" name="id" id="id" />
+            <div class="form-group mb-3">
+                <label for="inputField">User Email</label>
+                <select name="user_id" id="update-user_id" class="form-select @error('user_id') is-invalid @enderror" required aria-label="Select User">
+                    <option></option>
+                    @foreach ($users as $user)
+                        <option value="{{ $user->id }}"> {{ $user->email }} </option>
+                    @endforeach
+                </select>
+                @error('user_id')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label for="position">Position</label>
+                <input type="text" class="form-control @error('position') is-invalid @enderror" required id="update-position" name="position">
+                @error('position')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <hr/>
+            <div class="form-group mb-3">
+                <label for="rate">Rate</label>
+                <input type="number" class="form-control @error('rate') is-invalid @enderror" id="update-rate" required name="rate">
+                @error('rate')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <div class="form-check form-switch">
+                    <input class="form-check-input @error('is_fixed') is-invalid @enderror" type="checkbox" id="update-isFixed" name="is_fixed" checked>
+                    <label class="form-check-label" for="isFixed">Is Fixed Rate</label>
+                </div>
+                @error('is_fixed')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+            <div class="form-group mb-3">
+                <label for="payout">Payout</label>
+                <select name="payout" id="update-payout" class="form-select @error('payout') is-invalid @enderror" required aria-label="Select Payout">
+                    <option></option>
+                    <option value="15-30"> 15th & 30</option>
+                    <option value="30"> 30 </option>
+                </select>
+                @error('payout')
+                    <span class="invalid-feedback" role="alert">
+                        <strong>{{ $message }}</strong>
+                    </span>
+                @enderror
+            </div>
+        </x-modal>
     </div>
     <!--end::Row-->
 </div>
 @endsection
 @section('scripts')
     <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const viewModal = new bootstrap.Modal(document.getElementById("viewEmployeeModal"));
+            const printButtons = document.querySelectorAll('.view-button');
+
+            printButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    const itemId = this.getAttribute('data-item-id');
+                    const userData = JSON.parse(this.getAttribute('data-user'));
+                    console.log(userData);
+                    const user_id = userData.user_id;
+                    const id = userData.id;
+                    const userEmail = userData.employee_id;
+                    const position = userData.position;
+                    const rate = userData.rate;
+                    const isFixed = userData.isFixed;
+                    const payout = userData.payout;
+
+                    document.getElementById('id').value = id;
+                    document.getElementById('update-user_id').value = user_id;
+                    document.getElementById('update-position').value = position;
+                    document.getElementById('update-rate').value = rate;
+                    document.getElementById('update-isFixed').checked = isFixed;
+                    document.getElementById('update-payout').value = payout;
+
+                    viewModal.show();
+                });
+            });
+        });
+
+
         $(function () {
 
             $('#manage-category-table').DataTable({

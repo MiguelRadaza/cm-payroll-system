@@ -22,4 +22,14 @@ class Company extends Model
     {
         return $this->belongsTo(User::class, 'user_id');
     }
+
+    public function employeePayout()
+    {
+        return $this->hasMany(EmployeePayout::class, 'company_id')->where('is_deleted', 0);
+    }
+
+    public function employee()
+    {
+        return $this->hasMany(Employee::class, 'company_id')->where('is_deleted', 0);
+    }
 }
