@@ -30,7 +30,7 @@
     <div class="container-fluid">
         <!--begin::Row-->
         <div class="container">
-            @role('ceo')
+            @role(['ceo', 'super admin'])
                 <div class="row mb-5">
                     <!--begin::Col-->
                     <div class="col-lg-3 col-6">
