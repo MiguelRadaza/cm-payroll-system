@@ -11,7 +11,7 @@
     <div class="sidebar-wrapper">
         <nav class="mt-2">
             <ul class="nav sidebar-menu flex-column" data-lte-toggle="treeview" role="menu" data-accordion="false">
-                @role('ceo')
+                @role(['ceo', 'super admin'])
                     <li class="nav-item">
                         <a class='nav-link @if(Request::is('dashboard/*') || Request::is('dashboard')) active @endif' href="{{ route('dashboard') }}">
                             <i class="nav-icon fas fa-gauge-high"></i>
