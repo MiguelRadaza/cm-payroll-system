@@ -36,7 +36,7 @@
                                     <td>{{ $payout->total_deductions }}</td>
                                     <td class="text-center">
                                         <button class="btn btn-success btn-md print-button" data-item-id="{{ $payout->id }}"><i class="fas fa-print me-2"></i> Print</button>
-                                        @role('ceo')
+                                        @role(['ceo', 'super admin'])
                                             <a class="btn btn-danger btn-md" href="{{ route('payouts.payslip-delete', $payout->id) }}"><i class="fas fa-trash me-2"></i> Delete Payout</a>
                                         @endrole
                                     </td>
