@@ -62,7 +62,7 @@ class CompanyInvitationController extends Controller
         return redirect()->back()->with(['success' => 'Company Invitation Created Successfully.']);
     }
 
-    public function deleteInvitation(Request $request)
+    public function deleteInvitation($id)
     {
         $key = RegistrationKey::where('id', $id)->first();
         if (!$key) {
