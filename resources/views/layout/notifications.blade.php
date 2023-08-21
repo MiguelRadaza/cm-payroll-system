@@ -11,8 +11,8 @@
 @endif
 
 @if(Session::has('warning'))
-    <x-alert-widget type="danger" dismissable="false">
-        <strong>Warning!!</strong> {{ Session::get('message') }}
+    <x-alert-widget type="warning" dismissable="false">
+        <strong>Warning!!</strong> {{ Session::get('warning') }}
     </x-alert-widget>
 @endif
 

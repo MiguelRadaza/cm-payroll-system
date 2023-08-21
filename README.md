@@ -1,4 +1,5 @@
 ##Connect to WebServer and do composer install
+    ./vendor/bin/sail up
     docker exec -it {docker sail id} "/bin/bash"
     cd domains/chomuntinlupa.com/public_html/cm-payroll/src
 

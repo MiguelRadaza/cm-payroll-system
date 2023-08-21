@@ -10,7 +10,7 @@ class PayoutController extends Controller
     public function index()
     {
         $user = $this->checkUserSession();
-        if ($user->hasRole('ceo')) {
+        if ($user->hasRole(['ceo', 'super admin'])) {
             $payouts = EmployeePayout::where('company_id', $user->company->id)->get();
         } else {
             $payouts = EmployeePayout::where('company_id', $user->employee->company->id)

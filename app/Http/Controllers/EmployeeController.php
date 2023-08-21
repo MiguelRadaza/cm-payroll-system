@@ -180,4 +180,28 @@ class EmployeeController extends Controller
         return redirect()->back()->with(['success' => 'Employee Created Successfully.']);
 
     }
+
+    public function deleteEmployee($id)
+    {
+        $employee = Employee::where('id', $id)->where('is_deleted', 0)->first();
+        if (!$employee) {
+            return redirect()->back()->with(['message' => 'An error ocurred while removing employee.']);
+        }
+        $employee->is_deleted = 1;
+        $employee->save();
+
+        return redirect()->back()->with(['warning' => 'Employee Deleted Successfully.']);
+    }
+
+    public function activateEmployee($id)
+    {
+        $employee = Employee::where('id', $id)->where('is_deleted', 1)->first();
+        if (!$employee) {
+            return redirect()->back()->with(['message' => 'An error ocurred while activating employee.']);
+        }
+        $employee->is_deleted = 0;
+        $employee->save();
+
+        return redirect()->back()->with(['message' => 'Employee Activated Successfully.']);
+    }
 }

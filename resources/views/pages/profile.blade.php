@@ -13,6 +13,17 @@
                         <p class="text-muted text-center">{{ Str::ucfirst(auth()->user()->company->name) }}</p>
                         <ul class="list-group list-group-unbordered mb-3">
                             <li class="list-group-item">
+                                <b>Name</b> <a class="float-right">{{ auth()->user()->name }}</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email Verified</b> <a class="@if (auth()->user()->email_verified_at) text-success @else text-danger @endif float-right">@if (auth()->user()->email_verified_at)
+                                    Verified <i class="fas fa-square-check"></i> @else Not Verified <i class="fas fa-circle-xmark"></i> <button class="btn btn-success btn-xs ms-3">Verift Now</button>
+                                @endif</a>
+                            </li>
+                            <li class="list-group-item">
+                                <b>Email: </b> <a class="float-right">{{ auth()->user()->email }}</a>
+                            </li>
+                            <li class="list-group-item">
                                 <b>Employees</b> <a class="float-right">{{ $employeeCount }}</a>
                             </li>
                         </ul>

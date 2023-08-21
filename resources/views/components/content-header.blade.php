@@ -9,6 +9,8 @@
                         Employee @if (Request::is('employees/payout/*') || Request::is('employees/payout')) - Payout @endif
                     @elseif(Request::is('admin/company-invitation/*') || Request::is('admin/company-invitation'))
                         Company Invitation
+                    @elseif(Request::is('payout-type/*') || Request::is('payout-type'))
+                        Payout Types
                     @else 
                         Payouts
                     @endif 
@@ -22,6 +24,8 @@
                             Employee
                         @elseif(Request::is('admin/company-invitation/*') || Request::is('admin/company-invitation'))
                             Company Invitation
+                        @elseif(Request::is('payout-type/*') || Request::is('payout-type'))
+                            Payout Types
                         @else 
                             Payouts
                         @endif 

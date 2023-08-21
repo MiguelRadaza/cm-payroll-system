@@ -30,6 +30,7 @@
                 </div>
                 <div class="card-body row">
                     <div class="col-12">
+                        <a href="{{ route('payout-type') }}" class="btn btn-secondary btn-md "><i class="fas fa-gear me-2"></i>Payout Type</a>
                         <button id="addEmployeeButton" class="btn btn-success btn-md float-end"><i class="fas fa-plus me-2"></i>Add New Employee</button>
                     </div>
                     <div class="col-12">
@@ -55,12 +56,22 @@
                                             <td>{{ $item->rate }}</td>
                                             <td>{{ $item->is_fixed }}</td>
                                             <td>{{ $item->payout }}</td>
-                                            <td>{{ $item->is_deleted }}</td>
+                                            <td>
+                                                @if ($item->is_deleted)
+                                                    <span class="badge bg-danger"> Deleted</span>
+                                                @else
+                                                    <span class="badge bg-success"> Active</span>
+                                                @endif
+                                            </td>
                                             <td>{{ $item->created_at }}</td>
                                             <td class="text-center">
-
-                                                <a @if(!empty($item->user_id)) href="{{ route('employee.create-page', $item->user_id) }}" @else hidden @endif class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
-                                                <button class="btn btn-info btn-md view-button" data-item-id="{{ $item->id }}" data-user="{{ $item }}"><i class="fas fa-clipboard me-2" ></i>View</button>
+                                                @if (!$item->is_deleted)
+                                                    <a @if(!empty($item->user_id)) href="{{ route('employee.create-page', $item->user_id) }}" @else hidden @endif class="btn btn-warning btn-md mr-3"><i class="fas fa-money-bill me-2"></i>Send Payout</a>
+                                                    <button class="btn btn-info btn-md view-button" data-item-id="{{ $item->id }}" data-user="{{ $item }}"><i class="fas fa-clipboard me-2" ></i>View</button>
+                                                    <a href="{{ route('employee.delete', $item->id) }}" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+                                                @else 
+                                                    <a href="{{ route('employee.activate', $item->id) }}" class="btn btn-success btn-xs"><i class="fas fa-check"></i> Activate</a>
+                                                @endif
                                             </td>
                                         </tr>
                                     @endforeach
@@ -107,14 +118,19 @@
                 @enderror
             </div>
             <hr/>
-            <div class="form-group mb-3">
+            <div class="form-group">
                 <label for="rate">Rate</label>
-                <input type="number" class="form-control @error('rate') is-invalid @enderror" id="rate" required name="rate">
-                @error('rate')
-                    <span class="invalid-feedback" role="alert">
-                        <strong>{{ $message }}</strong>
-                    </span>
-                @enderror
+                <div class="input-group mb-3">
+                    <input type="number" class="form-control @error('rate') is-invalid @enderror" id="rate" required name="rate">
+                    <div class="input-group-append">
+                        <span class="input-group-text">.00</span>
+                    </div>
+                    @error('rate')
+                        <span class="invalid-feedback" role="alert">
+                            <strong>{{ $message }}</strong>
+                        </span>
+                    @enderror
+                </div>
             </div>
             <div class="form-group mb-3">
                 <div class="form-check form-switch">

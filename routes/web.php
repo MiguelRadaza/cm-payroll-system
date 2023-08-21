@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PayoutController;
+use App\Http\Controllers\PayoutTypeController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\CompanyInvitationController;
 /*
@@ -28,6 +29,8 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('employees')->group(function () {
         Route::get('/', [EmployeeController::class, 'index'])->name('employee');
         Route::post('/update-employee', [EmployeeController::class, 'updateEmployee'])->name('employee.update');
+        Route::get('/activate/{id}', [EmployeeController::class, 'activateEmployee'])->name('employee.activate');
+        Route::get('/delete/{id}', [EmployeeController::class, 'deleteEmployee'])->name('employee.delete');
         Route::post('/create-employee', [EmployeeController::class, 'createEmployee'])->name('employee.create');
         Route::get('/payout/{id}', [EmployeeController::class, 'sendPayoutPage'])->name('employee.create-page');
         Route::post('/payout/', [EmployeeController::class, 'sendPayout'])->name('employee.payout-create');
@@ -39,6 +42,10 @@ Route::middleware(['auth'])->group(function () {
     
     Route::get('/login', function () {
         return view('auth.login');
+    });
+
+    Route::prefix('payout-type')->group(function () {
+        Route::get('/', [PayoutTypeController::class, 'index'])->name('payout-type');
     });
 
     Route::prefix('payout')->group(function () {
