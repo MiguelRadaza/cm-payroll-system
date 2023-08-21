@@ -48,7 +48,7 @@
                                             <td>{{ $key->email }}</td>
                                             <td>{{ $key->countdown  }}</td>
                                             <td class="text-center">
-                                                <a class="btn btn-danger" href="{{ route('admin.delete-invitation') }}">
+                                                <a class="btn btn-danger" href="{{ route('admin.delete-invitation', $key->id) }}">
                                                     Delete Invitation
                                                 </a>
                                             </td>

@@ -54,7 +54,7 @@ Route::middleware(['auth'])->group(function () {
     Route::prefix('admin')->group(function () {
         Route::get('/company-invitation', [CompanyInvitationController::class, 'createPage'])->name('admin.create-invitation-page');
         Route::post('/company-invitation', [CompanyInvitationController::class, 'createInvitation'])->name('admin.create-invitation');
-        Route::post('/company-invitation-deleted', [CompanyInvitationController::class, 'deleteInvitation'])->name('admin.delete-invitation');
+        Route::get('/company-invitation-deleted/{id}', [CompanyInvitationController::class, 'deleteInvitation'])->name('admin.delete-invitation');
     });
 
 });
