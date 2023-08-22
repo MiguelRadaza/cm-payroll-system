@@ -10,12 +10,14 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Carbon;
 use Illuminate\Support\Facades\Notification;
 use App\Notifications\RegistrationInvitation;
-use App\Models\Employee;
-use App\Models\EmployeePayout;
-use App\Models\RegistrationKey;
-use App\Models\EmployeeDeduction;
+use App\Models\{
+    Employee,
+    EmployeePayout,
+    RegistrationKey,
+    EmployeeDeduction,
+    User
+};
 use App\Notifications\PayoutInvoice; 
-use App\Models\User;
 
 class EmployeeController extends Controller
 {
