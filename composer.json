@@ -12,7 +12,6 @@
         "laravel/tinker": "^2.8",
         "laravel/ui": "^4.2",
         "nesbot/carbon": "^2.69",
-        "nikolag/laravel-square": "^3.2",
         "spatie/laravel-permission": "^5.10"
     },
     "require-dev": {
