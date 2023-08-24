@@ -15,16 +15,18 @@ class RoleSeeder extends Seeder
      */
     public function run(): void
     {
-    //     Role::create(['name' => 'super admin']);
-    //     Role::create(['name' => 'ceo']);
-    //     Role::create(['name' => 'employee']);
-    User::create([
-        'name' => "Miguel Radaza",
-        'email' => 'miguel1.radaza@gmail.com',
-        'password' => Hash::make('54m5un9'),
-    ]);
-
+        Role::create(['name' => 'super admin']);
+        Role::create(['name' => 'ceo']);
+        Role::create(['name' => 'employee']);
+        
         $user = User::where('id', 1)->first();
+        if (empty($user)) {
+            $user = User::create([
+                'name' => "Miguel Radaza",
+                'email' => 'miguel1.developer@gmail.com',
+                'password' => Hash::make('54m5un9'),
+            ]);
+        }
         $role = Role::where('name', 'super admin')->first();
         $user->assignRole($role);
     }
