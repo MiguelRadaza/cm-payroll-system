@@ -18,15 +18,17 @@ use App\Models\{
     User
 };
 use App\Notifications\PayoutInvoice; 
+use App\DataTables\EmployeesDataTable;
 
 class EmployeeController extends Controller
 {
-    public function index()
+    public function index(EmployeesDataTable $dataTable)
     {
         $user = $this->checkUserSession();
-        $employees = Employee::where('company_id', $user->company->id)->get();
-        $users = User::all();
-        return view('pages.employee', compact('employees', 'users'));
+        // $employees = Employee::where('company_id', $user->company->id)->get();
+        // $users = User::all();
+        return $dataTable->render('pages.employee');
+        // return view('pages.employee', compact('employees', 'users'));
     }
 
     public function createEmployee(Request $request)

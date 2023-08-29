@@ -20,10 +20,9 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/css/select2.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.min.css" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2-bootstrap-5-theme@1.3.0/dist/select2-bootstrap-5-theme.rtl.min.css" />
-        <link rel="stylesheet" href="{{ asset('vendor/plugins/DataTables/datatables.min.css') }}">
-        <link rel="stylesheet" href="{{ asset('vendor/plugins/toastr/toastr.min.css') }}">
         <link rel="stylesheet" href="{{ asset('vendor/adminlte4/adminlte.css') }}">
         <link rel="stylesheet" href="{{ asset('css/cmPayroll.css') }}">
+        @vite(['resources/sass/app.scss', 'resources/js/app.js'])
     </head>
 
     <body class="sidebar-expand-lg bg-body-tertiary">
@@ -48,14 +47,13 @@
             </main>
             <x-footer></x-footer>
         </div>
+
         <script src="{{ asset('vendor/plugins/jquery/jquery.min.js') }}"></script>
-        <script src="{{ asset('vendor/plugins/toastr/toastr.min.js') }}"></script>
-        <script src="{{ asset('vendor/plugins/DataTables/datatables.min.js') }}"></script>
         <script src="https://cdn.jsdelivr.net/npm/overlayscrollbars@2.1.0/browser/overlayscrollbars.browser.es6.min.js" integrity="sha256-NRZchBuHZWSXldqrtAOeCZpucH/1n1ToJ3C8mSK95NU=" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.7/dist/umd/popper.min.js" integrity="sha384-zYPOMqeu1DAVkHiLqWBUTcbYfZ8osu1Nd6Z89ify25QV9guujx43ITvfi12/QExE" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.min.js" integrity="sha384-Y4oOpwW3duJdCWv5ly8SCFYWqFDsfob/3GkgExXKV4idmbt98QcxXYs9UoXAB7BZ" crossorigin="anonymous"></script>
-        <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
-        @yield('scripts')
+        <script src="{{ asset('vendor/plugins/DataTables/datatables.min.js') }}"></script>
+       
+        @stack('scripts')
+        {{-- <script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script> --}}
         {{-- <script src="{{ asset('vendor/plugins/jquery/jquery-3.7.0.min.js') }}"></script> --}}
         <script src="{{ asset('vendor/adminlte4/adminlte.js') }}"></script>
         <script>
