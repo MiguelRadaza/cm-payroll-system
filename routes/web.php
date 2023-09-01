@@ -25,6 +25,9 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('dashboard');
+    Route::get('/dashboard-v2', function () {
+        return view('pages.dashboard-v2');
+    })->name('dashboardV2');
 
     Route::prefix('employees')->group(function () {
         Route::get('/', [EmployeeController::class, 'index'])->name('employee');

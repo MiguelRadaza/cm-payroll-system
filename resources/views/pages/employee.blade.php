@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app-v2')
 @section('content')
     <div class="container">
         <!--begin::Row-->
