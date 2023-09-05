@@ -7,12 +7,8 @@
             <div class="col-lg-3 col-6">
                 <!--begin::Small Box Widget 1-->
                 <x-small-box-widget
-                    icon='
-                    <svg class="small-box-icon" fill="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-                        <path d="M6.25 6.375a4.125 4.125 0 118.25 0 4.125 4.125 0 01-8.25 0zM3.25 19.125a7.125 7.125 0 0114.25 0v.003l-.001.119a.75.75 0 01-.363.63 13.067 13.067 0 01-6.761 1.873c-2.472 0-4.786-.684-6.76-1.873a.75.75 0 01-.364-.63l-.001-.122zM19.75 7.5a.75.75 0 00-1.5 0v2.25H16a.75.75 0 000 1.5h2.25v2.25a.75.75 0 001.5 0v-2.25H22a.75.75 0 000-1.5h-2.25V7.5z"></path>
-                    </svg>
-                    '
-                    color="bg-warning" count="{{ count($employees) }}" content="Employees" moreLink="#" />
+                    icon='users'
+                    color="tertiary" count="{{ count($employees) }}" content="Employees" moreLink="#" />
                 <!--end::Small Box Widget 1-->
             </div>
             <!--end::Col-->
@@ -29,7 +25,7 @@
                     </div>
                     <div class="col-12">
                         <div class="table-responsive">
-                            <table id="manage-category-table" class="table table-bordered table-striped table-responsive">
+                            <table id="cm-datatable-default" class="table table-bordered table-striped table-responsive">
                                 <thead>
                                     <tr>
                                         <th>Name</th>
@@ -53,17 +49,9 @@
                                             <td>{{ $item->payout }}</td>
                                             <td class="text-center badge-status">
                                                 @if ($item->is_deleted)
-                                                    <span class="badge bg-danger"> </span> Deleted
+                                                    <span class="ecommerce-status on-hold">Deleted</span>
                                                 @else
-                                                    <svg class="svg-inline--fa fa-circle fa-w-16 mr-1 text-light-green f-10"
-                                                        style="font-size: 10px !important;" aria-hidden="true" focusable="false"
-                                                        data-prefix="fa" data-icon="circle" role="img"
-                                                        xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"
-                                                        data-fa-i2svg="">
-                                                        <path fill="currentColor"
-                                                            d="M256 8C119 8 8 119 8 256s111 248 248 248 248-111 248-248S393 8 256 8z">
-                                                        </path>
-                                                    </svg><!-- <i class="fa fa-circle mr-1 text-light-green f-10"></i> Font Awesome fontawesome.com -->Active
+                                                    <span class="ecommerce-status completed">Completed</span>
                                                 @endif
                                             </td>
                                             <td>{{ $item->created_at }}</td>
@@ -77,10 +65,10 @@
                                                         data-item-id="{{ $item->id }}" data-user="{{ $item }}"><i
                                                             class="fas fa-clipboard me-2"></i>View</button>
                                                     <a href="{{ route('employee.delete', $item->id) }}"
-                                                        class="btn btn-danger btn-xs"><i class="fas fa-trash"></i></a>
+                                                        class="btn btn-danger btn-md"><i class="fas fa-trash"></i></a>
                                                 @else
                                                     <a href="{{ route('employee.activate', $item->id) }}"
-                                                        class="btn btn-success btn-xs"><i class="fas fa-check"></i>
+                                                        class="btn btn-success btn-md"><i class="fas fa-check"></i>
                                                         Activate</a>
                                                 @endif
                                             </td>
@@ -244,7 +232,18 @@
         <!--end::Row-->
     </div>
 @endsection
-@section('scripts')
+@section('page-scripts')
+    <script src="{{ asset('vendor/cm-payroll/vendor/select2/js/select2.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/media/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/JSZip-2.5.0/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/cm-datatable.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const viewModal = new bootstrap.Modal(document.getElementById("viewEmployeeModal"));

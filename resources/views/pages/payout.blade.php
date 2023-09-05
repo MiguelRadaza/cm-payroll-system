@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app-v2')
 @section('content')
 <div class="container-fluid">
     <!--begin::Row-->
@@ -12,7 +12,7 @@
             <form id="deductionForm">
                 @csrf
                 <input id="is_fixed" value="{{ $employee->is_fixed }}" type="hidden">
-                <input id="employee_id" value="{{ $employee->user_id }}" type="hidden">
+                <input id="employee_id" value="{{ $employee->id }}" type="hidden">
                 <div class="card-body">
                     <div class="row">
                         <div class="row">
@@ -102,7 +102,7 @@
     <!--end::Row-->
 </div>
 @endsection
-@section('scripts')
+@section('page-scripts')
     <script>
         $(document).ready(function () {
             $("#addDeduction").click(function () {

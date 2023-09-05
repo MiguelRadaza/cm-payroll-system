@@ -6,6 +6,7 @@ use Illuminate\Support\Facades\Validator;
 use Illuminate\Http\Request;
 use Auth;
 use App\Models\User;
+use App\Models\Company;
 use App\Notifications\RegistrationInvitation;
 use Illuminate\Support\Facades\Notification;
 use App\Models\RegistrationKey;
@@ -17,6 +18,7 @@ class CompanyInvitationController extends Controller
 {
     public function createPage()
     {
+        $companyCount = Company::where('state', Company::STATE_ACTIVE)->count();
         $keys = RegistrationKey::where('is_deleted', 0)->get();
         if (!empty($keys)) {
             foreach ($keys as $key => &$value) {
@@ -26,7 +28,7 @@ class CompanyInvitationController extends Controller
                 $value->countdown = $expirationDuration->format('%h hours, %i minutes');
             }
         }
-        return view('pages.admin.company-registration', compact('keys'));
+        return view('pages.admin.company-registration', compact('keys', 'companyCount'));
     }
 
     public function createInvitation(Request $request)

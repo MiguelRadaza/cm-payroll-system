@@ -25,4 +25,10 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function dashboardPage()
+    {
+        $user = $this->checkUserSession();
+        return view('pages.dashboard-v2');
+    }
 }

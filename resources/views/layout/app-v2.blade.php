@@ -1,18 +1,14 @@
 <!doctype html>
-<html class="fixed">
-
+<html class="fixed header-dark">
 <head>
-
-    <!-- Basic -->
-    <meta charset="UTF-8">
-
-    <title>Default Layout | Porto Admin - Responsive HTML5 Template</title>
-
-    <meta name="keywords" content="HTML5 Admin Template" />
-    <meta name="description" content="Porto Admin - Responsive HTML5 Template">
-    <meta name="author" content="okler.net">
-
-    <!-- Mobile Metas -->
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>CM Payroll System</title>
+    <meta name="csrf-token" content="{{ csrf_token() }}">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="title" content="Covenant Millionare Payroll System">
+    <meta name="author" content="Miguel Radaza (Starlight)">
+    <meta name="description" content="A system for covenant millionare to help managing employees payroll history, and for employees to check payout history.">
+    <meta name="keywords" content="payroll, CM Payroll, CM payroll, cm payroll, cm payroll system">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
     <!-- Web Fonts  -->
@@ -32,6 +28,10 @@
     <link rel="stylesheet"
         href="{{ asset('vendor/cm-payroll/vendor/bootstrap-multiselect/css/bootstrap-multiselect.css') }}" />
     <link rel="stylesheet" href="{{ asset('vendor/cm-payroll/vendor/morris/morris.css') }}" />
+
+    <link rel="stylesheet" href="{{ asset('vendor/cm-payroll/vendor/select2/css/select2.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/cm-payroll/vendor/select2-bootstrap-theme/select2-bootstrap.min.css') }}" />
+    <link rel="stylesheet" href="{{ asset('vendor/cm-payroll/vendor/datatables/media/css/dataTables.bootstrap5.css') }}" />
 
     <!-- Theme CSS -->
     <link rel="stylesheet" href="{{ asset('vendor/cm-payroll/css/theme.css') }}" />
@@ -64,38 +64,17 @@
     <script src="{{ asset('vendor/cm-payroll/vendor/jquery-browser-mobile/jquery.browser.mobile.js') }}"></script>
     <script src="{{ asset('vendor/cm-payroll/vendor/popper/umd/popper.min.js') }}"></script>
     <script src="{{ asset('vendor/cm-payroll/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/bootstrap-datepicker/js/bootstrap-datepicker.js') }}"></script>
     <script src="{{ asset('vendor/cm-payroll/vendor/common/common.js') }}"></script>
     <script src="{{ asset('vendor/cm-payroll/vendor/nanoscroller/nanoscroller.js') }}"></script>
     <script src="{{ asset('vendor/cm-payroll/vendor/magnific-popup/jquery.magnific-popup.js') }}"></script>
     <script src="{{ asset('vendor/cm-payroll/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/jquery-placeholder/jquery.placeholder.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/select2/js/select2.js') }}"></script>
+
 
     <!-- Specific Page Vendor -->
-    <script src="{{ asset('vendor/cm-payroll/vendor/jquery-ui/jquery-ui.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqueryui-touch-punch/jquery.ui.touch-punch.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jquery-appear/jquery.appear.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/bootstrap-multiselect/js/bootstrap-multiselect.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jquery.easy-pie-chart/jquery.easypiechart.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/flot/jquery.flot.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/flot.tooltip/jquery.flot.tooltip.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/flot/jquery.flot.pie.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/flot/jquery.flot.categories.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/flot/jquery.flot.resize.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jquery-sparkline/jquery.sparkline.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/raphael/raphael.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/morris/morris.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/gauge/gauge.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/snap.svg/snap.svg.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/liquid-meter/liquid.meter.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/jquery.vmap.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/data/jquery.vmap.sampledata.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/jquery.vmap.world.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/continents/jquery.vmap.africa.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/continents/jquery.vmap.asia.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/continents/jquery.vmap.australia.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/continents/jquery.vmap.europe.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/continents/jquery.vmap.north-america.js') }}"></script>
-    <script src="{{ asset('vendor/cm-payroll/vendor/jqvmap/maps/continents/jquery.vmap.south-america.js') }}"></script>
+    @yield('page-scripts')
 
     <!-- Theme Base, Components and Settings -->
     <script src="{{ asset('vendor/cm-payroll/js/theme.js') }}"></script>

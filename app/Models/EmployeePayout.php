@@ -11,7 +11,7 @@ class EmployeePayout extends Model
 
     public function employee()
     {
-        return $this->belongsTo(Employee::class, 'employee_id');
+        return $this->belongsTo(Employee::class);
     }
 
     public function deductions()
@@ -19,3 +19,4 @@ class EmployeePayout extends Model
         return $this->hasMany(EmployeeDeduction::class, 'payout_id')->where('is_deleted', 0);
     }
 }
+ 

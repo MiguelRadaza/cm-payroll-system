@@ -5,6 +5,7 @@ use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\PayoutController;
 use App\Http\Controllers\PayoutTypeController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\HomeController;
 use App\Http\Controllers\CompanyInvitationController;
 /*
 |--------------------------------------------------------------------------
@@ -25,9 +26,7 @@ Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/dashboard', function () {
         return view('pages.dashboard');
     })->name('dashboard');
-    Route::get('/dashboard-v2', function () {
-        return view('pages.dashboard-v2');
-    })->name('dashboardV2');
+    Route::get('/dashboard-v2', [HomeController::class, 'dashboardPage'])->name('dashboardV2');
 
     Route::prefix('employees')->group(function () {
         Route::get('/', [EmployeeController::class, 'index'])->name('employee');

@@ -1,12 +1,24 @@
 @props(['icon', 'count', 'content', 'color','moreLink'])
-<div class="small-box text-{{ $color }}">
-    <div class="inner">
-        <h3>{{ $count }}</h3>
 
-        <p>{{ $content }}</p>
+<section class="card card-featured-left card-featured-quaternary mb-4">
+    <div class="card-body ">
+        <div class="widget-summary">
+            <div class="widget-summary-col widget-summary-col-icon">
+                <div class="summary-icon bg-{{ $color }}">
+                    <i class="fas fa-user"></i>
+                </div>
+            </div>
+            <div class="widget-summary-col">
+                <div class="summary">
+                    <h4 class="title">{{ $content }}</h4>
+                    <div class="info">
+                        <strong class="amount">{{ $count }}</strong>
+                    </div>
+                </div>
+                <div class="summary-footer">
+                    <a href="{{ $moreLink }}" class="text-uppercase">(view all)</a>
+                </div>
+            </div>
+        </div>
     </div>
-    {!! $icon !!}
-    <a href="{{ $moreLink }}" class="small-box-footer">
-        More info <i class="bi bi-link-45deg"></i>
-    </a>
-</div>
+</section>

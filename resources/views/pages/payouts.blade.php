@@ -1,4 +1,4 @@
-@extends('layout.app')
+@extends('layout.app-v2')
 @section('content')
 <div class="container-fluid">
     <!--begin::Row-->
@@ -19,7 +19,7 @@
                     <h2 class="card-title">Employee Payout List</h2>
                 </div>
                 <div class="card-body">
-                    <table id="manage-category-table" class="table table-bordered table-striped">
+                    <table id="cm-datatable-default" class="table table-bordered table-striped">
                         <thead>
                             <tr>
                                 <th>Name</th>
@@ -51,11 +51,21 @@
     <!--end::Row-->
 </div>
 @endsection
-@section('scripts')
+@section('page-scripts')
+    <script src="{{ asset('vendor/cm-payroll/vendor/select2/js/select2.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/media/js/jquery.dataTables.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/media/js/dataTables.bootstrap5.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/dataTables.buttons.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.html5.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/Buttons-1.4.2/js/buttons.print.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/JSZip-2.5.0/jszip.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/pdfmake-0.1.32/pdfmake.min.js') }}"></script>
+    <script src="{{ asset('vendor/cm-payroll/vendor/datatables/extras/TableTools/pdfmake-0.1.32/vfs_fonts.js') }}"></script>
+    <script src="{{ asset('js/cm-datatable.js') }}"></script>
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             const printButtons = document.querySelectorAll('.print-button');
-
             printButtons.forEach(button => {
                 button.addEventListener('click', function() {
                     const itemId = this.getAttribute('data-item-id');
@@ -66,18 +76,6 @@
                         printWindow.print();
                     };
                 });
-            });
-        });
-
-        $(function () {
-            $('#manage-category-table').DataTable({
-                "paging": true,
-                "lengthChange": false,
-                "searching": false,
-                "ordering": true,
-                "info": true,
-                "autoWidth": false,
-                "responsive": true,
             });
         });
     </script>
