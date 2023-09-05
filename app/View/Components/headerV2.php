@@ -6,7 +6,7 @@ use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class headerV2 extends Component
+class HeaderV2 extends Component
 {
     /**
      * Create a new component instance.
