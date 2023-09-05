@@ -49,11 +49,11 @@
 
 <body>
     <section class="body">
-        <x-headerV2></x-headerV2>
+        <x-header-v2></x-header-v2>
         <div class="inner-wrapper">
-            <x-sidebarV2></x-sidebarV2>
+            <x-sidebar-v2></x-sidebar-v2>
             <section role="main" class="content-body">
-                <x-contentHeaderV2></x-contentHeaderV2>
+                <x-contentHeader-v2></x-contentHeader-v2>
                 @yield('content')
             </section>
         </div>
