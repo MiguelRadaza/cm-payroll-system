@@ -53,7 +53,7 @@
         <div class="inner-wrapper">
             <x-sidebar-v2></x-sidebar-v2>
             <section role="main" class="content-body">
-                <x-contentHeader-v2></x-contentHeader-v2>
+                <x-content-header-v2></x-content-header-v2>
                 @yield('content')
             </section>
         </div>
