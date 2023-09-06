@@ -60,6 +60,13 @@
                                 <span>Company Invitation</span>
                             </a>
                         </li>
+
+                        <li class="@if(Request::is('admin/company-invitation/*') || Request::is('admin/company-invitation')) nav-active @endif">
+                            <a class='nav-link' href="{{ route('admin.create-invitation-page') }}"> 
+                                <i class="fas fa-bullhorn" aria-hidden="true"></i>
+                                <span>Broadcast Message</span>
+                            </a>
+                        </li>
                     @endrole
 
                 </ul>
