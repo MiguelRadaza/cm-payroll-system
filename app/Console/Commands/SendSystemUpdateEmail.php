@@ -30,7 +30,7 @@ class SendSystemUpdateEmail extends Command
         $ceos = User::with('company')->get();
         foreach ($ceos as $user) {
             if (!empty($user->company)) {
-                $user->notify(new PayoutInvoice($user->name));
+                $user->notify(new SoftwareUpdate($user->name));
             }
         }
     }
